@@ -1,6 +1,7 @@
 #pragma once
 #include <Eigen/Dense>
 using namespace Eigen;
+using namespace std;
 
 //scalar reciprocal
 double reciprocalScalar(double x)
@@ -26,6 +27,12 @@ double expScalar(double x)
 	return exp(x);
 }
 
+//scalar sqrt function
+double sqrtScalar(double x)
+{
+	return sqrt(x);
+}
+
 class FunctionBase
 {
 public:
@@ -37,6 +44,7 @@ public:
 	MatrixXd binaryCols(MatrixXi &labels,int numOfClasses);
 	MatrixXd expMat(MatrixXd &z);
 	MatrixXd logMat(MatrixXd &z);
+	MatrixXd sqrtMat(MatrixXd &z);
 	MatrixXd reciprocal(MatrixXd &z);
 	double calcAccurancy(MatrixXi &pred,MatrixXi &labels);
 	FunctionBase();
@@ -108,6 +116,11 @@ MatrixXd FunctionBase::sigmoidGradient(MatrixXd &z)
 MatrixXd FunctionBase::sigmoid(MatrixXd &z)
 {
 	return z.unaryExpr(ptr_fun(sigmoidScalar));
+}
+
+MatrixXd FunctionBase::sqrtMat(MatrixXd &z)
+{
+	return z.unaryExpr(ptr_fun(sqrtScalar));
 }
 
 MatrixXd FunctionBase::binaryCols(MatrixXi &labels,int numOfClasses)

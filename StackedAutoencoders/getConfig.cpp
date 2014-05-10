@@ -29,7 +29,7 @@ bool getConfigIntValue(char * buf,char *key,int &val)
 	int keyLen = (int)strlen(key);
 	int start = findStr(buf,key,bufLen,keyLen);
 	int valueStart = start+keyLen;
-	int end = findStr(buf,"\r",bufLen,1,valueStart);
+	int end = findStr(buf,"\n",bufLen,1,valueStart);
 	if(start == -1 || end == -1)
 	{
 		return false;
@@ -55,7 +55,7 @@ bool getConfigStrValue(char * buf,char *key,char *dstStr,int dstLen)
 	int keyLen = (int)strlen(key);
 	int start = findStr(buf,key,bufLen,keyLen);
 	int valueStart = start+keyLen;
-	int end = findStr(buf,"\r",bufLen,1,valueStart);
+	int end = findStr(buf,"\n",bufLen,1,valueStart);
 	if(start == -1 || end == -1)
 	{
 		return false;
@@ -79,7 +79,7 @@ bool getConfigDoubleValue(char * buf,char *key,double &val)
 	int keyLen = (int)strlen(key);
 	int start = findStr(buf,key,bufLen,keyLen);
 	int valueStart = start+keyLen;
-	int end = findStr(buf,"\r",bufLen,1,valueStart);
+	int end = findStr(buf,"\n",bufLen,1,valueStart);
 	if(start == -1 || end == -1)
 	{
 		return false;
@@ -105,7 +105,7 @@ bool getConfigMapTable(char * buf,char *key,int *dstTable,int dstLen)
 	int keyLen = (int)strlen(key);
 	int start = findStr(buf,key,bufLen,keyLen);
 	int valueStart = start+keyLen;
-	int end = findStr(buf,"\r",bufLen,1,valueStart);
+	int end = findStr(buf,"\n",bufLen,1,valueStart);
 	if(start == -1 || end == -1)
 	{
 		return false;
@@ -120,7 +120,7 @@ bool getConfigMapTable(char * buf,char *key,int *dstTable,int dstLen)
 	int x = 0;
 	for(i = valueStart,j = 0; i <= end; i++,j++)
 	{
-		if(buf[i] == ',' || buf[i] == '\r')
+		if(buf[i] == ',' || buf[i] == '\n')
 		{
 			str[x] = 0;
 			x = -1;
