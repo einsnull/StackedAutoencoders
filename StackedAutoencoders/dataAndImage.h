@@ -6,9 +6,9 @@
 using namespace std;
 using namespace Eigen;
 
-#pragma comment(lib,"opencv_core243.lib")
-#pragma comment(lib,"opencv_highgui243.lib")
-#pragma comment(lib,"opencv_imgproc243.lib")
+#pragma comment(lib,"opencv_core246.lib")
+#pragma comment(lib,"opencv_highgui246.lib")
+#pragma comment(lib,"opencv_imgproc246.lib")
 
 bool loadMnistData(MatrixXd &data,char *szFileName)
 {

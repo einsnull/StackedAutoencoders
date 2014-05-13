@@ -87,6 +87,9 @@ int main()
 	//timer
 	clock_t start = clock();
 	ret = loadMnistData(trainingData,"mnist\\train-images-idx3-ubyte");
+	//test
+	cout << trainingData.rows() << " " << trainingData.cols() << endl;
+	//end test
 	cout << "Loading training data..." << endl;
 	if(ret == false)
 	{
@@ -115,6 +118,8 @@ int main()
 		return -1;
 	}
 	MatrixXi pred1 = stackedAE.predict(testData);
+	cout << pred1.rows() << " " << pred1.cols() << endl;
+	cout << testLabels.rows() << " " << testLabels.cols() << endl;
 	double acc1 = stackedAE.calcAccurancy(testLabels,pred1);
 	cout << "Accurancy before fine tuning: " << acc1 * 100 << "%" << endl;
 	MatrixXd aeTheta1 = stackedAE.getAe1Theta();
