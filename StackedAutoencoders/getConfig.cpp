@@ -4,7 +4,7 @@ bool loadFileToBuf(char *fileName,char *buf,int bufSize)
 {
 	FILE *fp;
 	int size;
-	fopen_s(&fp,fileName,"rb");
+	fopen_s(&fp,fileName,"r");
 	if(fp)
 	{
 		fseek(fp,0,SEEK_END);
@@ -17,7 +17,9 @@ bool loadFileToBuf(char *fileName,char *buf,int bufSize)
 		}
 		fread(buf,1,size,fp);
 		fclose(fp);
-		buf[size] = NULL;
+		buf[size] = '\r';
+		buf[size + 1] = '\n';
+		buf[size + 2] = NULL;
 		return true;
 	}
 	return false;
@@ -30,6 +32,8 @@ bool getConfigIntValue(char * buf,char *key,int &val)
 	int start = findStr(buf,key,bufLen,keyLen);
 	int valueStart = start+keyLen;
 	int end = findStr(buf,"\n",bufLen,1,valueStart);
+	/*printf("strlen: %d\n", end - valueStart );*/
+	
 	if(start == -1 || end == -1)
 	{
 		return false;
@@ -44,7 +48,7 @@ bool getConfigIntValue(char * buf,char *key,int &val)
 	{
 		str[j] = buf[i];
 	}
-	str[end] = 0;
+	str[j] = 0;
 	val = atoi(str);
 	return true;
 }
@@ -69,7 +73,7 @@ bool getConfigStrValue(char * buf,char *key,char *dstStr,int dstLen)
 	{
 		dstStr[j] = buf[i];
 	}
-	dstStr[end] = 0;
+	dstStr[j] = 0;
 	return true;
 }
 
@@ -94,7 +98,7 @@ bool getConfigDoubleValue(char * buf,char *key,double &val)
 	{
 		str[j] = buf[i];
 	}
-	str[end] = 0;
+	str[j] = 0;
 	val = atof(str);
 	return true;
 }
